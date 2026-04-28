@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francis — The Overlanding Cat</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0c0b09;
+    --paper: #f4efe6;
+    --aged: #e5dccb;
+    --rust: #b84a1e;
+    --gold: #c8a84b;
+    --fog: #8a8278;
+    --charcoal: #1e1c18;
+    --cream: #f9f5ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 52px 24px 40px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw; height: 80vw;
+    max-width: 520px; max-height: 520px;
+    background: radial-gradient(circle, rgba(200,168,75,0.07) 0%, transparent 68%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 36px;
+    opacity: 0; animation: fadeUp 0.5s ease forwards 0.1s;
+  }
+  .cd-days {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; font-style: italic;
+    font-size: clamp(110px, 34vw, 210px);
+    line-height: 0.82; letter-spacing: -0.04em;
+    color: var(--paper); position: relative;
+    opacity: 0; animation: fadeUp 0.6s ease forwards 0.25s;
+  }
+  .cd-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--fog);
+    margin-top: 18px;
+    opacity: 0; animation: fadeUp 0.5s ease forwards 0.35s;
+  }
+  .reunion-block {
+    margin-top: 32px;
+    opacity: 0; animation: fadeUp 0.6s ease forwards 0.45s;
+  }
+  .reunion-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 7vw, 40px);
+    font-weight: 700; color: var(--paper);
+  }
+  .reunion-main span { color: var(--rust); }
+  .reunion-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--fog);
+    letter-spacing: 0.15em; margin-top: 10px;
+    text-transform: uppercase; line-height: 1.7;
+  }
+  .hero-sig {
+    margin-top: 36px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-style: italic;
+    color: rgba(244,239,230,0.3); line-height: 1.8;
+    opacity: 0; animation: fadeUp 0.5s ease forwards 0.6s;
+  }
+  .scroll-hint {
+    margin-top: 44px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em;
+    color: rgba(138,130,120,0.35); text-transform: uppercase;
+    opacity: 0; animation: fadeUp 0.5s ease forwards 0.8s;
+  }
+  .scroll-hint::after {
+    content: ''; display: block;
+    width: 1px; height: 30px;
+    background: linear-gradient(to bottom, rgba(138,130,120,0.25), transparent);
+    margin: 10px auto 0;
+  }
+
+  /* NAME BAR */
+  .name-bar {
+    background: var(--charcoal);
+    padding: 18px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid #2a2820; border-bottom: 1px solid #2a2820;
+  }
+  .name-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 900; line-height: 0.9;
+    color: var(--paper);
+  }
+  .name-title em { font-style: italic; color: var(--gold); }
+  .name-handles { text-align: right; }
+  .name-handle {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    color: var(--fog); display: block; line-height: 1.9;
+  }
+
+
+
+  /* CONTENT */
+  .wrap {
+    max-width: 480px; margin: 0 auto; padding: 0 24px;
+  }
+  .sect { padding-top: 36px; }
+  .sect-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--rust);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sect-label::after {
+    content: ''; flex: 1; height: 1px; background: #2a2820;
+  }
+
+  /* ARC */
+  .arc { border: 1px solid #2a2820; }
+  .arc-head {
+    background: var(--charcoal); padding: 11px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .arc-head-t {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700; font-style: italic;
+    color: var(--paper);
+  }
+  .arc-head-s {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .leg {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 14px; padding: 13px 18px;
+    border-top: 1px solid #1a1916;
+    align-items: start;
+  }
+  .leg.done { opacity: 0.38; }
+  .leg.now { background: rgba(184,74,30,0.05); }
+  .ldot {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1.5px solid #2a2820;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 7px;
+    color: var(--fog); flex-shrink: 0; margin-top: 2px;
+  }
+  .ldot.d { background: #252320; border-color: #2a2820; }
+  .ldot.n { background: var(--rust); border-color: var(--rust); color: var(--paper); }
+  .ldot.x { border-color: var(--gold); color: var(--gold); }
+  .lrow { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
+  .lname {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700; color: var(--paper);
+  }
+  .ldate {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; color: var(--rust); white-space: nowrap; margin-left: 6px;
+  }
+  .lnote {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--fog); line-height: 1.5;
+  }
+
+  /* PLATFORMS */
+  .plinks { display: grid; gap: 5px; }
+  .plink {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px; background: var(--charcoal);
+    border: 1px solid #2a2820; border-left: 3px solid var(--rust);
+    text-decoration: none; color: var(--paper);
+    transition: background 0.12s, border-left-color 0.12s;
+  }
+  .plink:hover { background: #232118; border-left-color: var(--gold); }
+  .ph {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; color: var(--fog); margin-bottom: 3px;
+  }
+  .pn {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700; color: var(--paper);
+  }
+  .pa { color: #3a3830; transition: color 0.12s; }
+  .plink:hover .pa { color: var(--gold); }
+
+  /* CAPTURE */
+  .cap {
+    background: var(--charcoal);
+    border: 1px solid #2a2820; border-top: 3px solid var(--gold);
+    padding: 20px 20px;
+  }
+  .cap-k {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 7px;
+  }
+  .cap-h {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--paper);
+    line-height: 1.2; margin-bottom: 6px;
+  }
+  .cap-s {
+    font-size: 12px; color: rgba(244,239,230,0.4);
+    line-height: 1.6; margin-bottom: 14px;
+  }
+  .cap-i {
+    width: 100%; padding: 11px 13px;
+    background: rgba(244,239,230,0.04);
+    border: 1px solid #3a3830; color: var(--paper);
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    outline: none; margin-bottom: 7px;
+    transition: border-color 0.12s;
+  }
+  .cap-i::placeholder { color: rgba(244,239,230,0.18); }
+  .cap-i:focus { border-color: var(--gold); }
+  .cap-b {
+    width: 100%; padding: 11px;
+    background: var(--rust); color: var(--paper);
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    border: none; cursor: pointer; transition: background 0.12s;
+  }
+  .cap-b:hover { background: #d4622a; }
+  .cap-ok {
+    display: none; font-family: 'Playfair Display', serif;
+    font-size: 14px; font-style: italic;
+    color: var(--gold); margin-top: 10px; line-height: 1.6;
+  }
+  .cap-n {
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    color: rgba(244,239,230,0.18); margin-top: 7px; font-style: italic;
+  }
+
+  /* DISPATCH */
+  .dispatch {
+    background: var(--charcoal);
+    border: 1px solid #2a2820; border-left: 3px solid var(--gold);
+    padding: 16px 18px;
+  }
+  .dk {
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--fog); margin-bottom: 8px;
+  }
+  .dt {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-style: italic;
+    color: rgba(244,239,230,0.6); line-height: 1.65;
+  }
+  .ds {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--rust); margin-top: 10px; font-weight: 500;
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: 480px; margin: 32px auto 0; padding: 16px 24px 52px;
+    border-top: 1px solid #1a1916;
+    display: flex; justify-content: space-between;
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    color: #383530; letter-spacing: 0.08em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Francis — The Overlanding Cat · 2026</div>
+  <div class="cd-days" id="cd">51</div>
+  <div class="cd-unit" id="cdu">days until the operation resumes</div>
+  <div class="reunion-block">
+    <div class="reunion-main">June 18, <span>2026</span></div>
+    <div class="reunion-sub">Netherlands · Francis rejoins the operation<br>Business class · He did not request this</div>
+  </div>
+  <div class="hero-sig">
+    he was not leaving. he was being left.<br>
+    there is a difference. — F
+  </div>
+  <div class="scroll-hint">operation details</div>
+</section>
+
+<!-- NAME BAR -->
+<div class="name-bar">
+  <div class="name-title">FRANCIS<br><em>the cat.</em></div>
+  <div class="name-handles">
+    <span class="name-handle">@francisoverlanding</span>
+    <span class="name-handle">@sirfrancistok</span>
+    <span class="name-handle">YouTube · Facebook</span>
+  </div>
+</div>
+
+
+
+<div class="wrap">
+
+  <!-- ARC TRACKER -->
+  <div class="sect">
+    <div class="sect-label">Journey arc</div>
+    <div class="arc">
+      <div class="arc-head">
+        <div class="arc-head-t">The Francis Protocol — 2026</div>
+        <div class="arc-head-s">Live</div>
+      </div>
+      <div class="leg done">
+        <div class="ldot d">✓</div>
+        <div>
+          <div class="lrow"><div class="lname">Wilmington, DE</div><div class="ldate">Ch. 0.x</div></div>
+          <div class="lnote">Training arc. Backpack. Stores. He approved most of it.</div>
+        </div>
+      </div>
+      <div class="leg done">
+        <div class="ldot d">✓</div>
+        <div>
+          <div class="lrow"><div class="lname">St. Louis → Madison</div><div class="ldate">Ch. 0.x</div></div>
+          <div class="lnote">He was not leaving. He was being left. There is a difference.</div>
+        </div>
+      </div>
+      <div class="leg now">
+        <div class="ldot n">→</div>
+        <div>
+          <div class="lrow"><div class="lname">Iceland + Faroe Islands</div><div class="ldate">IC.x / FA.x</div></div>
+          <div class="lnote">Francis-free prologue. He is on assignment in Madison. Field reports continue.</div>
+        </div>
+      </div>
+      <div class="leg">
+        <div class="ldot x">18</div>
+        <div>
+          <div class="lrow"><div class="lname">Netherlands — The Reunion</div><div class="ldate">Jun 18</div></div>
+          <div class="lnote">ACT1.x begins. Francis rejoins. He has filed no complaints. He has noted everything.</div>
+        </div>
+      </div>
+      <div class="leg">
+        <div class="ldot"></div>
+        <div>
+          <div class="lrow"><div class="lname">Scandinavia → Balkans → Turkey</div><div class="ldate">Jul–Oct</div></div>
+          <div class="lnote">The main operation. Francis reviews every country. Verdicts are binding.</div>
+        </div>
+      </div>
+      <div class="leg">
+        <div class="ldot"></div>
+        <div>
+          <div class="lrow"><div class="lname">Morocco</div><div class="ldate">TBD</div></div>
+          <div class="lnote">Final leg. Francis has expressed no opinion. This is unlike him.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATFORMS -->
+  <div class="sect">
+    <div class="sect-label">Find the operation</div>
+    <div class="plinks">
+      <a class="plink" href="https://www.tiktok.com/@sirfrancistok" target="_blank">
+        <div><div class="ph">@sirfrancistok</div><div class="pn">TikTok</div></div>
+        <span class="pa">→</span>
+      </a>
+      <a class="plink" href="https://www.instagram.com/francisoverlanding" target="_blank">
+        <div><div class="ph">@francisoverlanding</div><div class="pn">Instagram</div></div>
+        <span class="pa">→</span>
+      </a>
+      <a class="plink" href="https://www.youtube.com/@francisoverlanding" target="_blank">
+        <div><div class="ph">YouTube Shorts</div><div class="pn">YouTube</div></div>
+        <span class="pa">→</span>
+      </a>
+      <a class="plink" href="https://www.facebook.com/francisoverlanding" target="_blank">
+        <div><div class="ph">Francis the Overlanding Cat</div><div class="pn">Facebook</div></div>
+        <span class="pa">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="sect">
+    <div class="sect-label">Field dispatches</div>
+    <div class="cap">
+      <div class="cap-k">Dispatches from the road</div>
+      <div class="cap-h">The full report.<br>When it happens.</div>
+      <div class="cap-s">Border crossings. Cat logistics. What actually got checked vs what the official website said. Dated. First-person. No filler.</div>
+      <div id="cf">
+        <input class="cap-i" type="email" id="ei" placeholder="your email address" autocomplete="email">
+        <button class="cap-b" onclick="sub()">File the report →</button>
+      </div>
+      <div class="cap-ok" id="ok">noted. the dispatch will find you. — F</div>
+      <div class="cap-n">field reports only. Francis does not do promotions.</div>
+    </div>
+  </div>
+
+  <!-- DISPATCH -->
+  <div class="sect">
+    <div class="sect-label">From the field</div>
+    <div class="dispatch">
+      <div class="dk">Dispatch — Apr 28, 2026 · En route to Iceland</div>
+      <div class="dt">we document what happened to us. not what the websites say should happen. the official sources tell you the rules. the Francis Protocol tells you the reality. that gap is where this lives.</div>
+      <div class="ds">— F (filed by Francis, transcribed by the crew)</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>@francisoverlanding · 2026</span>
+    <span>Year 1 of the operation</span>
+  </div>
+
+</div>
+
+<script>
+function tick() {
+  const t = new Date('2026-06-18T00:00:00'), n = new Date(), d = Math.floor((t-n)/86400000);
+  const el = document.getElementById('cd'), ul = document.getElementById('cdu');
+  if(!el) return;
+  if(d <= 0){ el.textContent='0'; ul.textContent='the operation has resumed'; return; }
+  el.textContent = d;
+  ul.textContent = d===1 ? 'day until the operation resumes' : 'days until the operation resumes';
+}
+tick(); setInterval(tick, 60000);
+
+function sub() {
+  const v = document.getElementById('ei').value.trim();
+  if(!v || !v.includes('@')){ document.getElementById('ei').style.borderColor='#b84a1e'; document.getElementById('ei').focus(); return; }
+  document.getElementById('cf').style.display='none';
+  document.getElementById('ok').style.display='block';
+}
+document.getElementById('ei').addEventListener('keydown', e=>{ if(e.key==='Enter') sub(); });
+</script>
+</body>
+</html>
